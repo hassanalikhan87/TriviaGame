@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+
+    <div id="trivia-area"></div>
+
+    <script>
+
+        var questionBank = [
+            {
+                question: "What color is the sky?",
+                answerChoices: ["green", "blue", "red"],
+                answerIndex: 'blue'
+            },
+            {
+                question: "What is my name?",
+                answerChoices: ["Hassan", "Ruby", "Sunny"],
+                answerIndex: 'Hassan'
+            },
+            {
+                question: "What is my favourite car?",
+                answerChoices: ["Audi", "BMW", "Mercedes"],
+                answerIndex: 'Mercedes'
+            }
+        ];
+
+
+        function createQuestions(array) {
+            for (let i = 0; i < array.length; i++) {
+                $("#trivia-area").append("<h1>" + array[i].question + "</h1>");
+
+                for (let y = 0; y < array[i].answerChoices.length; y++) {
+                    $("#trivia-area").append("<input type='radio' name='question-" + i + "' value='" + array[i].answerChoices[y] + "' >" + array[i].answerChoices[y]);
+                }
+            }
+
+            // $("#trivia-area").append("<br><br>");
+            $("#trivia-area").append("<br><br><button id='submit'>Submit</button>");
+        }
+
+        createQuestions(questionBank);
+
+        $(document).on("click", "#submit", function () {
+
+            let correctAnswers = 0;
+
+            for (let i = 0; i < questionBank.length; i++) {
+                $.each($("input[name='question-" + i + "']:checked"), function () {
+                    console.log("Question " + i + " answer: " + $(this).val());
+
+                    if($(this).val() === questionBank[i].answerIndex){
+                        console.log("you got it right!")
+                        correctAnswers++;
+                    }
+                })
+            }
+
+            alert("you got " + correctAnswers + " correct");
+
+        })
+
+    </script>
+
+</body>
+
+</html>
+
+
+
